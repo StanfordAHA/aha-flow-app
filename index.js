@@ -21,7 +21,7 @@ module.exports = app => {
 		if (token != AHA_FLOW_TOKEN) {
 			res.send(401);
 		}
-		const id = req.body.id;
+		const id = parseInt(req.body.id);
 		let github = await app.auth(id);
 		const org = req.body.org;
 		const repo = req.body.repo;
