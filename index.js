@@ -93,6 +93,7 @@ module.exports = app => {
 		 .catch(function(err) {
 			 app.log(err);
 		 });
+		const link = result.web_url;
 		return context.github.checks.create({
 			owner: org,
 			repo: repo,
@@ -102,7 +103,8 @@ module.exports = app => {
 			output: {
 				title: title,
 				summary: summary
-			}
+			},
+			details_url: link
 		})
 	})
 
