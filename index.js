@@ -1,11 +1,10 @@
+var body_parser = require('body-parser');
+var rq = require('request-promise-native');
 /**
  * This is the main entrypoint to your Probot app
  * @param {import('probot').Application} app
  */
 module.exports = app => {
-	var body_parser = require('body-parser');
-	var rq = require('request-promise-native');
-
 	app.log('Yay, the app was loaded!');
 	const BUILDKITE_TOKEN = process.env.BUILDKITE_TOKEN;
 	const AHA_FLOW_TOKEN = process.env.AHA_FLOW_TOKEN;
