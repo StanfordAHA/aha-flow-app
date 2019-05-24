@@ -94,6 +94,7 @@ module.exports = app => {
 			 app.log(err);
 		 });
 		const link = result.web_url;
+		app.log(link);
 		return context.github.checks.create({
 			owner: org,
 			repo: repo,
