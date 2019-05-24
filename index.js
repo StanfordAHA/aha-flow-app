@@ -106,7 +106,8 @@ module.exports = app => {
 				title: title,
 				summary: summary
 			},
-			details_url: link
+			details_url: link,
+			started_at: new Date().toISOString(),
 		})
 	})
 
