@@ -86,14 +86,14 @@ module.exports = app => {
 			}
 		}
 
+		var link = "";
 		const result = await rq(options)
 		 .then(function(info) {
-			app.log(info);
+			link = info.web_url;
 		 })
 		 .catch(function(err) {
 			 app.log(err);
 		 });
-		const link = result.web_url;
 		app.log(link);
 		return context.github.checks.create({
 			owner: org,
