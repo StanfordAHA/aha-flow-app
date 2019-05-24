@@ -46,7 +46,7 @@ module.exports = app => {
 		res.send("okay")
 	});
 
-	app.on("pull_request.synchronize", async context => {
+	app.on(["pull_request.synchronize", "pull_request.opened"], async context => {
 		const pr = context.payload.pull_request;
 		const head = pr.head
 		if (!pr || pr.state !== "open") {
