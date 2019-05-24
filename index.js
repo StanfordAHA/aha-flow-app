@@ -8,7 +8,6 @@ module.exports = app => {
 	app.log('Yay, the app was loaded!');
 	const BUILDKITE_TOKEN = process.env.BUILDKITE_TOKEN;
 	const AHA_FLOW_TOKEN = process.env.AHA_FLOW_TOKEN;
-	app.log(BUILDKITE_TOKEN)
 	
 	// this is standard express route to receive buildkite hooks
 	const router = app.route("/aha-flow-app");
@@ -28,6 +27,7 @@ module.exports = app => {
 		const head_sha = req.body.head_sha;
 		const status = req.body.status;
 		const conclusion = req.body.conclusion;
+		const url = req.body.url;
 		let summary = "";
 		github.checks.create({
 			owner: org,
@@ -40,12 +40,13 @@ module.exports = app => {
 			output: {
 				title: title,
 				summary: summary
-			}
+			},
+			details_url: url
 		})
 		res.send("okay")
 	});
 
-	app.on('*', async context => {
+	app.on("pull_request.synchronize", async context => {
 		const pr = context.payload.pull_request;
 		const head = pr.head
 		if (!pr || pr.state !== "open") {
@@ -94,7 +95,7 @@ module.exports = app => {
 		 .catch(function(err) {
 			 app.log(err);
 		 });
-		app.log(link);
+
 		return context.github.checks.create({
 			owner: org,
 			repo: repo,
