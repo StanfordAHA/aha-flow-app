@@ -8,7 +8,7 @@ module.exports = app => {
 	app.log('Yay, the app was loaded!');
 	const BUILDKITE_TOKEN = process.env.BUILDKITE_TOKEN;
 	const AHA_FLOW_TOKEN = process.env.AHA_FLOW_TOKEN;
-	
+
 	// this is standard express route to receive buildkite hooks
 	const router = app.route("/aha-flow-app");
 	const title = "GarnetFlow Check"
@@ -54,6 +54,11 @@ module.exports = app => {
 			return;
 		}
 
+        if (head.base.ref != "master") {
+            // we are only interested in the pull request for the master
+            return;
+        }
+
 		const sha = head.sha;
 		const owner = pr.base.repo.owner;
 		const org = owner.login;
@@ -71,6 +76,7 @@ module.exports = app => {
 			FLOW_ID: context.payload.installation.id
 		};
 		env[new_repo_name] = sha;
+        env["PR"] = 1;
 
 		var options = {
 			method: "POST",
