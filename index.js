@@ -54,7 +54,7 @@ module.exports = app => {
 			return;
 		}
 
-        if (head.base.ref != "master") {
+        if (pr.base.ref != "master") {
             // we are only interested in the pull request for the master
             return;
         }
