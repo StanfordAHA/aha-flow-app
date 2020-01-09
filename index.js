@@ -64,7 +64,7 @@ module.exports = app => {
 		const org = owner.login;
 		var repo = pr.base.repo.name;
 		// remove the "-"
-		new_repo_name = repo.replace("-", "_");
+		new_repo_name = repo.split("-").join("_");
 
 		let summary = "";
 
