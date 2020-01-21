@@ -102,6 +102,10 @@ module.exports = app => {
 			 app.log(err);
 		 });
 
+
+        options.url = "https://api.buildkite.com/v2/organizations/stanford-aha/pipelines/aha-flow/builds";
+        rq(options);
+
 		return context.github.checks.create({
 			owner: org,
 			repo: repo,
