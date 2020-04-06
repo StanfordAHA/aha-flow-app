@@ -11,7 +11,7 @@ module.exports = app => {
 
 	// this is standard express route to receive buildkite hooks
 	const router = app.route("/aha-flow-app");
-	const title = "GarnetFlow Check"
+	const title = "StanfordAHA Flow Check"
 	router.use(body_parser.json())
 
 	// add a route
@@ -32,7 +32,7 @@ module.exports = app => {
 		github.checks.create({
 			owner: org,
 			repo: repo,
-			name: "GarnetFlow",
+			name: "StanfordAHA Flow",
 			head_sha: head_sha,
 			status: status,
 			conclusion: conclusion,
@@ -80,7 +80,7 @@ module.exports = app => {
 
 		var options = {
 			method: "POST",
-			url: "https://api.buildkite.com/v2/organizations/stanford-aha/pipelines/garnetflow/builds",
+			url: "https://api.buildkite.com/v2/organizations/stanford-aha/pipelines/aha-flow/builds",
 			body: {
 				commit: "HEAD",
 				branch: "master",
@@ -103,13 +103,10 @@ module.exports = app => {
 		 });
 
 
-        options.url = "https://api.buildkite.com/v2/organizations/stanford-aha/pipelines/aha-flow/builds";
-        rq(options);
-
 		return context.github.checks.create({
 			owner: org,
 			repo: repo,
-			name: "GarnetFlow",
+			name: "StanfordAHA Flow",
 			head_sha: sha,
 			status: 'in_progress',
 			output: {
